@@ -1,0 +1,70 @@
+Repackagin APK
+------------------------
+
+1. Decompile
+
+apktool d -r app.apk -o /dir
+
+-r :ignore decoding resources
+
+
+2.Build the PK
+
+
+apktool b /dir -o app_out.apk
+
+
+
+3.Sign in android app: 
+
+ a) to view cert details of an app:
+
+   keytool -printcert -file CERT.RSA 
+
+  b) To generate cert,
+
+       keytool -genkey -v -keystore <keystore_name> -alias <alias_name> -keyalg RSA -keysize 2048 -validity 365
+
+
+       ex: keytool -genkey -v -keystore movius -alias movius1 -keyalg RSA -keysize 2048 -validity 365
+
+  c) sign the certificate:
+
+         jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore <keystorename> file.apk <aliasname>
+
+
+         ex:
+
+         jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore movius movius_signs.apk movius1
+
+
+
+
+reference:
+
+https://medium.com/@chris.yn.chen/apk-reverse-engineering-df7ed8cec191
+
+https://medium.com/shehuawwal/android-certificate-generate-sign-and-verify-an-apk-app-853ac92a326c
+    
+https://www.airpair.com/android/posts/adding-tampering-detection-to-your-android-apps
+
+
+jadx-gui : source code and decompiled version
+    
+
+ Errors when recompiling resource and building it:
+ -----------------------------------------------
+ 1.Use latest apktool - version 2.4.1
+ 2.Before build the apk, issue following command
+ 
+                java -jar apktool_2.4.1.jar empty-framework-dir
+
+3. apktool b --use-aapt2 -o out.apk directory
+
+4. for native library extracting issue
+zipalign -p -f 4 input.apk output.apk
+
+4. zipalign -p -f 4 input.apk output.apk
+
+         https://github.com/blattmann/zipalign
+
