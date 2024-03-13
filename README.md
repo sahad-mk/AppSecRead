@@ -1,2 +1,2 @@
 # AppSecRead
-Application Security documents written by me. Read and make it useful.
+Explore this repository for Application Security documents authored by me
